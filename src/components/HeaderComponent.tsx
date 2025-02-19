@@ -86,6 +86,7 @@ const HeaderComponent = ({
   isTenantShow,
   isCohortShow,
   showSearch = true,
+  shouldClearSearch,
 }: any) => {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
@@ -505,6 +506,7 @@ const HeaderComponent = ({
               <SearchBar
                 onSearch={handleSearch}
                 placeholder={searchPlaceHolder}
+                shouldClearSearch={shouldClearSearch}
               />
             </Box>
           )}

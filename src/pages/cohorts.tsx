@@ -105,6 +105,7 @@ const Center: React.FC = () => {
   const [error, setError] = useState<any>([]);
   const [isCreateCohortAdminModalOpen, setIsCreateCohortAdminModalOpen] =
     useState(false);
+  const [shouldClearSearch, setShouldClearSearch] = useState(0);
 
   const setSubmittedButtonStatus = useSubmittedButtonStore(
     (state: any) => state.setSubmittedButtonStatus
@@ -449,6 +450,8 @@ const Center: React.FC = () => {
     selectedNames: string[],
     selectedCodes: string[]
   ) => {
+    console.log("calling tenant change");
+    setShouldClearSearch((prev) => prev + 1);
     if (selectedNames && selectedCodes) {
       const tenantId = selectedCodes.join(",");
 
@@ -507,6 +510,8 @@ const Center: React.FC = () => {
   };
 
   const handleSearch = (keyword: string) => {
+    console.log("calling");
+
     setPageOffset(Numbers.ZERO);
     setPageCount(Numbers.ONE);
     if (keyword?.length > 3) {
@@ -943,6 +948,7 @@ const Center: React.FC = () => {
     statusValue: statusValue,
     setStatusValue: setStatusValue,
     showSort: false,
+    shouldClearSearch,
   };
 
   return (

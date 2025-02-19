@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 interface SearchBarProps {
   onSearch: (keyword: string) => void;
   placeholder: string;
+  shouldClearSearch: number;
 }
 
 const SearchBox = styled(Paper)<{ isSmallScreen: boolean }>(
@@ -28,7 +29,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   flex: 1,
 }));
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, placeholder }) => {
+const SearchBar: React.FC<SearchBarProps> = ({
+  onSearch,
+  placeholder,
+  shouldClearSearch,
+}) => {
   const [keyword, setKeyword] = useState("");
   const { t } = useTranslation();
   const isSmallScreen = useMediaQuery((theme: any) =>
@@ -38,6 +43,12 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, placeholder }) => {
   const validateKeyword = (keyword: string) => {
     return /^(\S+)( \S+)*$/.test(keyword.trim()) && !/\s{2,}/.test(keyword);
   };
+  useEffect(() => {
+    if (shouldClearSearch > 0) {
+      setKeyword("");
+      onSearch("");
+    }
+  }, [shouldClearSearch]);
 
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {

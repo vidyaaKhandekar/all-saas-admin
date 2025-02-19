@@ -145,7 +145,7 @@ const UserTable: React.FC<UserTableProps> = ({
   const [confirmationModalOpen, setConfirmationModalOpen] =
     React.useState<boolean>(false);
   const [selectedRowData, setSelectedRowData] = useState<any>("");
-
+  const [shouldClearSearch, setShouldClearSearch] = useState(0);
   const uiSchema = {
     name: {
       "ui:widget": "text",
@@ -680,6 +680,7 @@ const UserTable: React.FC<UserTableProps> = ({
     selectedNames: string[],
     selectedCodes: string[]
   ) => {
+    setShouldClearSearch((prev) => prev + 1);
     if (selectedNames && selectedCodes) {
       const tenantId = selectedCodes.join(",");
       setSelectedTenant(selectedNames);
@@ -843,6 +844,7 @@ const UserTable: React.FC<UserTableProps> = ({
     selectedNames: string[],
     selectedCodes: string[]
   ) => {
+    setShouldClearSearch((prev) => prev + 1);
     if (selectedNames && selectedCodes) {
       const cohortId = selectedCodes.join(",");
       setSelectedCohort(selectedNames);
@@ -901,6 +903,7 @@ const UserTable: React.FC<UserTableProps> = ({
     isTenantShow: true,
     isCohortShow: true,
     //  statusArchived:true,
+    shouldClearSearch,
   };
 
   return (
